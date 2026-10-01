@@ -1,6 +1,7 @@
 # Punk AI — AI-Powered Meta Ads Consultant
-It is a product of Devs on Steroids Team.     
-
+It is a product of Devs on Steroids LLC Company.     
+company link: https://www.devsonsteroids.com/
+and I am a proud member of this amazing company.
 An AI advertising consultant that combines a conversational chatbot with an interactive map for geofence and POI-based audience targeting. The backend is a LangGraph agent that guides users through collecting business details, geo targets, and MAID (Mobile Advertising ID) audience data, then generates and publishes a complete Meta Ads campaign.
 
 ---

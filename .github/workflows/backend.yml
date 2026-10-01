@@ -1,0 +1,33 @@
+name: Deploy Backend
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'backend/**'
+
+jobs:
+  deploy:
+    name: Build, Migrate & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+
+    - name: Authenticate to GCP
+      uses: google-github-actions/auth@v2
+      with:
+        credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+    - name: Set up Cloud SDK
+      uses: google-github-actions/setup-gcloud@v2
+
+    - name: Submit backend build to Cloud Build
+      run: |
+        gcloud builds submit ./backend \
+          --config=backend/cloudbuild.yaml \
+          --project=<GCP_PROJECT> \
+          --region=northamerica-northeast1 \
+          --substitutions=COMMIT_SHA=${{ github.sha }} \
+          --timeout=20m

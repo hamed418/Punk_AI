@@ -1,0 +1,17 @@
+services:
+  portfolio-dev:
+    build:
+      context: .
+
+    container_name: portfolio_dev
+
+    ports:
+      - "${PORT:-3220}:3220"
+
+    env_file:
+      - .env
+
+    environment:
+      - PORT=3220
+
+    restart: unless-stopped

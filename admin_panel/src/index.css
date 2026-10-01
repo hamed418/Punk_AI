@@ -1,0 +1,879 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap");
+@import "@fontsource-variable/geist";
+@import "tailwindcss";
+
+/* Local OCRX font: place OCRX.otf at /public/fonts/OCRX.otf */
+@font-face {
+  font-family: "OCRX";
+  /* Using the provided WOFF file for better web compatibility */
+  src: url("fonts/016d77631553ff359b97c15a2ddb99e0.woff") format("woff");
+  font-weight: 400 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Utility class to apply OCRX font where desired */
+.font-ocrx {
+  font-family: "OCRX", var(--font-sans);
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui;
+  --font-display: "Outfit", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  /* ─── Semantic Surface Tokens ─── */
+  --color-surface-primary: var(--primary-background);        /* #F9F9F9 — page / muted background */
+  --color-surface-card: var(--secondary-active-light);       /* #FFFFFF — card / elevated surface */
+  --color-surface-overlay: var(--primary-background);        /* #F9F9F9 — overlays, table header bg */
+
+  /* ─── Semantic Text Tokens ─── */
+  --color-text-dark: var(--secondary-active-dark);           /* #0A0A0A — headings, primary body */
+  --color-text-muted: var(--text-primary);                   /* #737373 — secondary / helper text */
+  --color-text-subtle: #A3A3A3;                              /* dimmer than muted, for tertiary info */
+
+  /* ─── Semantic Border Tokens ─── */
+  --color-border-default: var(--border-primary);             /* #EBEBEB — default border */
+
+  /* ─── 2.1 Core Neutral & Surface Tokens (legacy aliases) ─── */
+  --color-primary-background: var(--primary-background);
+  --color-secondary-active-dark: var(--secondary-active-dark);
+  --color-secondary-active-light: var(--secondary-active-light);
+  --color-text-primary: var(--text-primary);
+  --color-border-primary: var(--border-primary);
+
+  /* ─── 2.2 Semantic & Accent Tokens ─── */
+  --color-highlight-teal: var(--highlight-teal);
+  --color-highlight-orange: var(--highlight-orange);
+  --color-highlight-cyan: var(--highlight-cyan);
+  --color-highlight-pink: var(--highlight-pink);
+  --color-graph-marker: var(--graph-marker);
+  --color-state-success: var(--state-success);
+  --color-state-danger: var(--state-danger);
+
+  /* ─── 2.3 Radius Tokens ─── */
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* ─── Theme-aware color mappings ─── */
+  --color-background: var(--primary-background);
+  --color-foreground: var(--secondary-active-dark);
+
+  --color-card: var(--secondary-active-light);
+  --color-card-foreground: var(--secondary-active-dark);
+
+  --color-widget-header: var(--bg-widget-header);
+
+  --color-popover: var(--secondary-active-light);
+  --color-popover-foreground: var(--secondary-active-dark);
+
+  --color-primary: var(--secondary-active-dark);
+  --color-primary-foreground: var(--secondary-active-light);
+
+  --color-secondary: var(--bg-checkbox);
+  --color-secondary-foreground: var(--secondary-active-dark);
+
+  --color-muted: var(--bg-checkbox);
+  --color-muted-foreground: var(--text-primary);
+
+  --color-accent: var(--bg-checkbox);
+  --color-accent-foreground: var(--secondary-active-dark);
+
+  --color-destructive: var(--state-danger);
+  --color-destructive-foreground: #ffffff;
+
+  --color-border: var(--border-primary);
+  --color-input: var(--bg-chat-input);
+  --color-ring: var(--graph-marker);
+}
+
+:root {
+  /* --- 2.1 Core Neutral & Surface Tokens --- */
+  --primary-background: #F9F9F9;
+  --secondary-active-dark: #0A0A0A;
+  --secondary-active-light: #FFFFFF;
+  --text-primary: #737373;
+  --border-primary: #EBEBEB;
+
+  --Radius-8: 8px;
+  --Stroke-Primary: #EBEBEB;
+  --Stroke-Secondary: #DFDFDF;
+  --Background-Surface-Default: #FFFFFF;
+  --Background-Surface-Neutral-Lv1: #F8F8F8;
+  --State-Primary-Light: #D1C8FF;
+  --Icon-Fill-Color: rgba(115, 115, 115, 0.20);
+  --Text-Secondary: #737373;
+
+  /* --- 2.2 Semantic & Accent Tokens --- */
+  --highlight-teal: #01897E;
+  --highlight-orange: #FF5A00;
+  --highlight-cyan: #01C1B1;
+  --highlight-pink: #F54397;
+  --graph-marker: #401AFF;
+  --state-success: #00D33F;
+  --state-danger: #D80027;
+
+  /* --- 2.3 Radius & Spacing Tokens --- */
+  --radius-8: 8px;
+  --radius-10: 10px;
+  --radius-12: 12px;
+  --radius-16: 16px;
+
+  /* --- 2.4 Scrollbar Tokens --- */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: #D4D4D8;
+  --scrollbar-thumb-hover: #A1A1AA;
+
+  /* --- 5. Master Dimensions Reference Variables --- */
+  --dim-navbar-w: 270px;
+  --dim-navbar-h: 918px;
+  --dim-topbar-w: 1162px;
+  --dim-topbar-h: 68px;
+  --dim-canvas-w: 1162px;
+  --dim-canvas-h: 911px;
+  --dim-stats-outer-w: 266.5px;
+  --dim-stats-outer-h: 105px;
+  --dim-stats-white-w: 262.5px;
+  --dim-stats-white-h: 69px;
+  --dim-stats-grey-w: 262.5px;
+  --dim-stats-grey-h: 30px;
+  --dim-graph-card-w: 706px;
+  --dim-graph-card-h: 355px;
+  --dim-activity-feed-w: 388px;
+  --dim-activity-feed-h: 355px;
+  --dim-recent-campaigns-w: 1114px;
+  --dim-recent-campaigns-h: 316px;
+  --dim-table-wrapper-w: 1114px;
+  --dim-table-wrapper-h: 416px;
+  --dim-table-body-w: 1114px;
+  --dim-table-body-h: 364px;
+  --dim-sub-card-w: 309px;
+  --dim-sub-card-h: 444px;
+  --dim-sub-modal-w: 650px;
+  --dim-sub-modal-h: 678px;
+
+  /* --- App Component Variables --- */
+  --bg-sidebar: #F9F9F9;
+  --text-sidebar: #0A0A0A;
+  --text-history: #737373;
+  --sidebar-selected: #0A0A0A;
+  --sidebar-shadow-1: 0px 1px 2px 0px #0000000d;
+  --sidebar-shadow-2: 0px 2px 5px 1px #00000014;
+
+  --bg-chat-page: #F9F9F9;
+  --bg-chat-input: #FFFFFF;
+
+  --bg-widget: #FFFFFF;
+  --text-widget: #0A0A0A;
+  --bg-widget-header: #FFFFFF;
+  --bg-checkbox: #F9F9F9;
+  --border-main: #EBEBEB;
+
+  --bg-user-chat: #F9F9F9;
+  --text-user-chat: #0A0A0A;
+  --border-user-chat: #EBEBEB;
+
+  --bg-split-right: #F9F9F9;
+  --border-split-right: #EBEBEB;
+
+  --primary-main: #0A0A0A;
+  --primary-content: #FFFFFF;
+  --text-main: #0A0A0A;
+
+  --shadow-sm: 0px 1px 2px 0px #0000000d;
+  --shadow-md: 0px 2px 5px 1px #00000014;
+}
+
+.dark {
+  /* --- Dark Overrides --- */
+  --primary-background: #0A0A0A;
+  --secondary-active-dark: #FFFFFF;
+  --secondary-active-light: #171717;
+  --text-primary: #A3A3A3;
+  --border-primary: #262626;
+
+  --Radius-8: 8px;
+  --Stroke-Primary: #262626;
+  --Stroke-Secondary: #333333;
+  --Background-Surface-Default: #171717;
+  --Background-Surface-Neutral-Lv1: #1C1C1C;
+  --State-Primary-Light: #3B2A8C;
+  --Icon-Fill-Color: rgba(255, 255, 255, 0.15);
+  --Text-Secondary: #A3A3A3;
+
+  --bg-sidebar: #171717;
+  --text-sidebar: #FFFFFF;
+  --sidebar-selected: #262626;
+  --border-main: #262626;
+
+  --bg-chat-page: #0A0A0A;
+  --bg-chat-input: #171717;
+
+  --bg-widget: #171717;
+  --text-widget: #FFFFFF;
+  --bg-widget-header: #171717;
+  --bg-checkbox: #171717;
+  --border-main: #262626;
+
+  --bg-user-chat: #171717;
+  --text-user-chat: #FFFFFF;
+
+  --primary-main: #FFFFFF;
+  --primary-content: #0A0A0A;
+  --text-main: #FFFFFF;
+  --text-history: #A3A3A3;
+
+  --btn-shadow-1: 0px 0.5px 1px 0px #0000000d;
+  --btn-shadow-2: 0px -4px 0px 0px #00000040 inset;
+
+  --bg-split-right: #171717;
+  --border-split-right: #262626;
+
+  /* --- Dark Scrollbar Tokens --- */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: #3F3F46;
+  --scrollbar-thumb-hover: #71717A;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+
+  /* Global sleek theme-matched scrollbars */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 9999px;
+    transition: background-color 150ms ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+
+  ::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+    margin: 0;
+    @apply bg-background text-foreground font-sans antialiased selection:bg-primary/20;
+  }
+}
+
+@layer utilities {
+  .sidebar-bg {
+    background-color: var(--bg-sidebar);
+  }
+  .sidebar-text {
+    color: var(--text-sidebar);
+  }
+  .chat-page-bg {
+    background-color: var(--bg-chat-page);
+  }
+  .chat-input-bg {
+    background-color: var(--bg-chat-input);
+  }
+
+  .widget-bg {
+    background-color: var(--bg-widget);
+  }
+  .widget-header-bg {
+    background-color: var(--bg-widget-header);
+  }
+
+  .user-chat-bubble {
+    background-color: var(--bg-user-chat);
+    color: var(--text-user-chat);
+    @apply rounded-2xl p-4 shadow-sm;
+  }
+
+  .split-right-section {
+    background-color: var(--bg-split-right);
+    border: 1px solid var(--border-split-right);
+    @apply rounded-xl overflow-hidden;
+  }
+
+  .shadow-professional {
+    box-shadow: var(--shadow-sm), var(--shadow-md);
+  }
+
+  .btn-professional {
+    @apply px-[20px] py-3 gap-2 rounded-[10px] transition-all active:scale-[0.98] font-bold text-sm uppercase tracking-wider flex items-center justify-center;
+    box-shadow:
+      0px 0.5px 1px 0px #0000000d,
+      0px -4px 0px 0px #00000040 inset;
+    background-color: #151515;
+    color: #ffffff;
+  }
+
+  .dark .btn-professional {
+    background-color: #272727;
+    box-shadow:
+      0px 0.5px 1px 0px #0000000d,
+      0px -4px 0px 0px #00000040 inset;
+  }
+
+  .btn-secondary-professional {
+    @apply px-[20px] py-3 gap-2 rounded-[10px] border border-border transition-all active:scale-[0.98] font-bold text-sm uppercase tracking-wider flex items-center justify-center bg-background text-foreground hover:bg-muted/50 shadow-sm;
+  }
+
+  /* ─── Signature Gradient Black Button (Matching "+ New Plan") ─── */
+  .btn-gradient-black {
+    background: #0A0A0A !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 9.6px 0 rgba(255, 255, 255, 0.25) inset !important;
+    transition: all 150ms ease !important;
+  }
+  .btn-gradient-black:hover {
+    opacity: 0.92 !important;
+    box-shadow: 0 4px 12px 0 rgba(255, 255, 255, 0.35) inset !important;
+  }
+  .btn-gradient-black:active {
+    transform: scale(0.98) !important;
+  }
+
+  /* --- 4.3 & 4.4 Design System Gradients & Tier Themes --- */
+  .bg-gradient-pro-tier {
+    background: linear-gradient(90deg, #0A0A0A 0%, #171717 49.52%, #0A0A0A 100%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%);
+  }
+
+  .bg-gradient-purchase-cta {
+    background: linear-gradient(90deg, #0A0A0A 0%, #171717 49.52%, #0A0A0A 100%),
+                linear-gradient(180deg, rgba(255, 255, 255, 0.16) 0%, rgba(255, 255, 255, 0) 100%);
+    box-shadow: 0 4px 9.6px 0 rgba(255, 255, 255, 0.25) inset, 0 2px 4px 0 rgba(0, 0, 0, 0.1);
+  }
+
+  .bg-gradient-sub-top-active {
+    background: 
+      linear-gradient(0deg, #3B2A8C, #3B2A8C),
+      linear-gradient(172.96deg, #FFE8F6 -81.48%, #FFFFFF 94.5%),
+      linear-gradient(0deg, #FFFFFF, #FFFFFF),
+      radial-gradient(93.39% 93.39% at 6.96% 6.61%, #313131 0%, #222222 100%),
+      radial-gradient(74.13% 99.91% at 105.97% -82.55%, rgba(173, 160, 160, 0.92) 65.77%, rgba(34, 34, 34, 0.92) 100%);
+  }
+
+  .bg-standard-tier {
+    background: var(--State-Primary-Light, #D1C8FF);
+  }
+
+  .bg-basic-tier {
+    background: var(--Background-Surface-Neutral-Lv1, #F8F8F8);
+  }
+
+  /* --- Chat Markdown Styling --- */
+  .chat-markdown {
+    & h1,
+    & h2,
+    & h3 {
+      @apply font-display font-bold mt-6 mb-3 leading-tight text-foreground;
+    }
+    & h1 {
+      @apply text-2xl;
+    }
+    & h2 {
+      @apply text-xl;
+    }
+    & p {
+      @apply my-3 leading-relaxed text-foreground/80;
+    }
+    & strong {
+      @apply font-semibold text-foreground;
+    }
+    & ul {
+      @apply list-disc pl-6 my-4 space-y-2;
+    }
+    & li {
+      @apply text-foreground/80;
+    }
+    & code:not(pre code) {
+      @apply bg-primary/5 text-primary px-1.5 py-0.5 rounded font-mono text-[0.9em];
+    }
+    & pre {
+      @apply bg-primary/5 border border-border rounded-xl p-4 my-4 overflow-x-auto font-mono text-sm;
+    }
+  }
+
+  /* Hide native scrollbars while keeping scroll functionality */
+  .custom-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+  .custom-scrollbar::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+    width: 0;
+    height: 0;
+  }
+
+  /* Explicitly styled theme scrollbar utility */
+  .themed-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+  }
+  .themed-scrollbar::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .themed-scrollbar::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+    border-radius: 9999px;
+  }
+  .themed-scrollbar::-webkit-scrollbar-thumb {
+    background-color: var(--scrollbar-thumb);
+    border-radius: 9999px;
+    transition: background-color 150ms ease;
+  }
+  .themed-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: var(--scrollbar-thumb-hover);
+  }
+  .themed-scrollbar::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* Segmented Control aligned with Card.svg and design tokens */
+  .graph-segmented-control {
+    background-color: var(--primary-background);
+    border: 1px solid var(--border-primary);
+    outline: none !important;
+  }
+  .graph-segmented-control *,
+  .graph-segmented-control *:focus,
+  .graph-segmented-control *:focus-visible,
+  .graph-segmented-control *:active,
+  .graph-segmented-control .mantine-SegmentedControl-input,
+  .graph-segmented-control .mantine-SegmentedControl-input:focus,
+  .graph-segmented-control .mantine-SegmentedControl-input:focus-visible,
+  .graph-segmented-control .mantine-SegmentedControl-control,
+  .graph-segmented-control .mantine-SegmentedControl-control:focus,
+  .graph-segmented-control .mantine-SegmentedControl-control:focus-visible,
+  .graph-segmented-control .mantine-SegmentedControl-label,
+  .graph-segmented-control .mantine-SegmentedControl-label:focus,
+  .graph-segmented-control .mantine-SegmentedControl-label:focus-visible {
+    outline: none !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+  .graph-segmented-control .mantine-SegmentedControl-control::before,
+  .graph-segmented-control .mantine-SegmentedControl-control::after,
+  .graph-segmented-control [class*="control"]::before,
+  .graph-segmented-control [class*="control"]::after,
+  .graph-segmented-control :where([class*="control"])::before,
+  .graph-segmented-control :where([class*="control"])::after {
+    display: none !important;
+    content: none !important;
+    background-color: transparent !important;
+    border: none !important;
+    width: 0 !important;
+    height: 0 !important;
+  }
+  .graph-segmented-control .mantine-SegmentedControl-indicator {
+    background-color: var(--secondary-active-light);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.05), 0 1px 2px 0 rgba(0, 0, 0, 0.04) !important;
+    border: none !important;
+    outline: none !important;
+  }
+  .graph-segmented-control .mantine-SegmentedControl-label {
+    color: var(--text-primary);
+    font-weight: 500;
+    transition: color 150ms ease;
+    border: none !important;
+    outline: none !important;
+    user-select: none;
+  }
+  .graph-segmented-control .mantine-SegmentedControl-label[data-active] {
+    color: var(--secondary-active-dark) !important;
+    font-weight: 600;
+    border: none !important;
+    outline: none !important;
+  }
+  /* Force remove Mantine AppShell navbar border for seamless sidebar-to-content join */
+  .mantine-AppShell-navbar {
+    border-right: none !important;
+  }
+
+  /* ─── Mantine Modal & Modals Manager Theme Integration ─── */
+  .mantine-Modal-overlay,
+  .mantine-Drawer-overlay {
+    background-color: rgba(0, 0, 0, 0.45) !important;
+    backdrop-filter: blur(4px) !important;
+  }
+
+  .mantine-Modal-content {
+    background-color: var(--secondary-active-light) !important;
+    color: var(--secondary-active-dark) !important;
+    border: 1px solid var(--border-primary) !important;
+    border-radius: var(--radius-12, 12px) !important;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1) !important;
+    overflow: hidden !important;
+  }
+
+  .mantine-Modal-header {
+    background-color: var(--secondary-active-light) !important;
+    color: var(--secondary-active-dark) !important;
+    border-bottom: 1px solid var(--border-primary) !important;
+    padding: 16px 20px !important;
+    min-height: 52px !important;
+  }
+
+  .mantine-Modal-title {
+    color: var(--secondary-active-dark) !important;
+    font-weight: 700 !important;
+    font-size: 14px !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .mantine-Modal-close,
+  .mantine-Drawer-close {
+    color: var(--text-primary) !important;
+    border-radius: 8px !important;
+    transition: all 150ms ease !important;
+    background-color: transparent !important;
+    border: 1px solid transparent !important;
+  }
+
+  .mantine-Modal-close:hover,
+  .mantine-Drawer-close:hover {
+    background-color: var(--primary-background) !important;
+    color: var(--secondary-active-dark) !important;
+    border-color: var(--border-primary) !important;
+  }
+
+  .mantine-Modal-body {
+    padding: 20px !important;
+    color: var(--secondary-active-dark) !important;
+    background-color: var(--secondary-active-light) !important;
+  }
+
+  /* ─── Mantine Drawer Theme Integration ─── */
+  .mantine-Drawer-content {
+    color: var(--secondary-active-dark);
+  }
+
+  /* Right-side detail drawers (Campaign, User, Inquiry details) */
+  .mantine-Drawer-root:not(.sidebar-drawer):not([data-position="left"]) .mantine-Drawer-content {
+    background-color: var(--secondary-active-light) !important;
+    border-left: 1px solid var(--border-primary) !important;
+    box-shadow: -10px 0 25px -5px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .mantine-Drawer-root:not(.sidebar-drawer):not([data-position="left"]) .mantine-Drawer-header {
+    background-color: var(--secondary-active-light) !important;
+    color: var(--secondary-active-dark) !important;
+    border-bottom: 1px solid var(--border-primary) !important;
+    padding: 16px 20px !important;
+  }
+
+  .mantine-Drawer-root:not(.sidebar-drawer):not([data-position="left"]) .mantine-Drawer-title {
+    color: var(--secondary-active-dark) !important;
+    font-weight: 700 !important;
+    font-size: 15px !important;
+  }
+
+  .mantine-Drawer-root:not(.sidebar-drawer):not([data-position="left"]) .mantine-Drawer-body {
+    padding: 20px !important;
+    color: var(--secondary-active-dark) !important;
+    background-color: var(--secondary-active-light) !important;
+  }
+
+  /* Left-side Navigation Sidebar Drawer */
+  .sidebar-drawer .mantine-Drawer-content,
+  .mantine-Drawer-root[data-position="left"] .mantine-Drawer-content {
+    background-color: var(--primary-background) !important;
+    border-right: 1px solid var(--border-primary) !important;
+    border-left: none !important;
+    box-shadow: 10px 0 25px -5px rgba(0, 0, 0, 0.08) !important;
+  }
+
+  .sidebar-drawer .mantine-Drawer-body,
+  .mantine-Drawer-root[data-position="left"] .mantine-Drawer-body {
+    padding: 0 !important;
+    background-color: var(--primary-background) !important;
+    height: 100% !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* ─── Mantine Menu & Popover Theme Integration ─── */
+  .mantine-Menu-dropdown,
+  .mantine-Popover-dropdown {
+    background-color: var(--secondary-active-light) !important;
+    border: 1px solid var(--border-primary) !important;
+    border-radius: var(--radius-12, 12px) !important;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.08) !important;
+    color: var(--secondary-active-dark) !important;
+  }
+
+  .mantine-Menu-item {
+    border-radius: 8px !important;
+    padding: 8px 12px !important;
+    color: var(--secondary-active-dark) !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    transition: all 120ms ease !important;
+  }
+
+  .mantine-Menu-item:hover,
+  .mantine-Menu-item[data-hovered] {
+    background-color: var(--primary-background) !important;
+  }
+
+  .mantine-Menu-divider {
+    border-top-color: var(--border-primary) !important;
+    margin: 4px 0 !important;
+  }
+
+  /* ─── Mantine Notifications Theme Integration ─── */
+  .mantine-Notification-root {
+    background-color: var(--secondary-active-light) !important;
+    border: 1px solid var(--border-primary) !important;
+    border-radius: var(--radius-12, 12px) !important;
+    box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.18), 0 4px 6px -2px rgba(0, 0, 0, 0.08) !important;
+    padding: 12px 16px !important;
+  }
+
+  .mantine-Notification-title {
+    color: var(--secondary-active-dark) !important;
+    font-weight: 700 !important;
+    font-size: 13px !important;
+    letter-spacing: -0.01em !important;
+  }
+
+  .mantine-Notification-description {
+    color: var(--text-primary) !important;
+    font-size: 12px !important;
+    line-height: 1.4 !important;
+  }
+
+  .mantine-Notification-closeButton {
+    color: var(--text-primary) !important;
+    border-radius: 6px !important;
+  }
+
+  .mantine-Notification-closeButton:hover {
+    background-color: var(--primary-background) !important;
+    color: var(--secondary-active-dark) !important;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(20px) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-slide-in {
+  animation: slide-in 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes slide-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-left {
+  animation: slide-left 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─── Mantine DateTimePicker Popover Custom Styling ─── */
+.admin-datetime-picker-dropdown {
+  background-color: var(--color-surface-card) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: 14px !important;
+  box-shadow: 0 12px 30px -4px rgba(0, 0, 0, 0.12), 0 4px 12px -2px rgba(0, 0, 0, 0.08) !important;
+  padding: 14px !important;
+}
+
+/* Calendar Header */
+.admin-datetime-picker-dropdown [data-calendar-header] {
+  max-width: 100% !important;
+  margin-bottom: 8px !important;
+}
+
+.admin-datetime-picker-dropdown button[data-direction],
+.admin-datetime-picker-dropdown button:where([class*="calendarHeaderControl"]),
+.admin-datetime-picker-dropdown button:where([class*="calendarHeaderLevel"]) {
+  color: var(--color-text-dark) !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+.admin-datetime-picker-dropdown button:where([class*="calendarHeaderControl"]):hover,
+.admin-datetime-picker-dropdown button:where([class*="calendarHeaderLevel"]):hover {
+  background-color: var(--color-surface-primary) !important;
+}
+
+/* Weekday column headers */
+.admin-datetime-picker-dropdown th,
+.admin-datetime-picker-dropdown [data-weekday] {
+  color: var(--color-text-muted) !important;
+  font-weight: 600 !important;
+  font-size: 11px !important;
+}
+
+/* Calendar Day Buttons */
+.admin-datetime-picker-dropdown tbody button {
+  color: var(--color-text-dark) !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  transition: all 120ms ease !important;
+}
+
+.admin-datetime-picker-dropdown tbody button:hover:not([data-disabled]):not([data-selected]) {
+  background-color: var(--color-surface-primary) !important;
+  color: var(--color-text-dark) !important;
+}
+
+.admin-datetime-picker-dropdown tbody button[data-weekend]:not([data-selected]):not([data-outside]) {
+  color: #ef4444 !important;
+}
+
+.admin-datetime-picker-dropdown tbody button[data-outside]:not([data-selected]) {
+  color: var(--color-text-muted) !important;
+  opacity: 0.45 !important;
+}
+
+.admin-datetime-picker-dropdown tbody button[data-selected] {
+  background-color: var(--color-text-dark) !important;
+  color: var(--color-surface-card) !important;
+  font-weight: 700 !important;
+}
+
+.admin-datetime-picker-dropdown tbody button[data-today]:not([data-selected]) {
+  border: 1px solid var(--color-border-default) !important;
+  font-weight: 600 !important;
+}
+
+.admin-datetime-picker-dropdown tbody button[data-disabled] {
+  opacity: 0.3 !important;
+  cursor: not-allowed !important;
+}
+
+/* Year / Month grid controls */
+.admin-datetime-picker-dropdown [data-picker-control] {
+  color: var(--color-text-dark) !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+}
+
+.admin-datetime-picker-dropdown [data-picker-control]:hover:not([data-selected]) {
+  background-color: var(--color-surface-primary) !important;
+}
+
+.admin-datetime-picker-dropdown [data-picker-control][data-selected] {
+  background-color: var(--color-text-dark) !important;
+  color: var(--color-surface-card) !important;
+  font-weight: 600 !important;
+}
+
+/* Time Picker Section at bottom */
+.admin-datetime-picker-dropdown [class*="timeWrapper"] {
+  border-top: 1px solid var(--color-border-default) !important;
+  padding-top: 10px !important;
+  margin-top: 10px !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.admin-datetime-picker-dropdown [class*="timeWrapper"] [class*="timeInput"] {
+  flex: 1 !important;
+  background-color: var(--color-surface-primary) !important;
+  border: 1px solid var(--color-border-default) !important;
+  border-radius: 8px !important;
+  height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 10px !important;
+  margin-inline-end: 0 !important;
+}
+
+.admin-datetime-picker-dropdown [class*="timeWrapper"] [class*="timeInput"] input[role="spinbutton"] {
+  color: var(--color-text-dark) !important;
+  background-color: transparent !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.admin-datetime-picker-dropdown [class*="timeWrapper"] [class*="timeInput"] [class*="fieldsGroup"] {
+  color: var(--color-text-muted) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 2px !important;
+  width: 100% !important;
+}
+
+.admin-datetime-picker-dropdown [class*="timeWrapper"] button:has(svg),
+.admin-datetime-picker-dropdown [class*="timeWrapper"] button[class*="submitButton"] {
+  background-color: var(--color-text-dark) !important;
+  color: var(--color-surface-card) !important;
+  border: none !important;
+  border-radius: 8px !important;
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  cursor: pointer !important;
+  transition: opacity 120ms ease !important;
+}
+
+.admin-datetime-picker-dropdown [class*="timeWrapper"] button:has(svg):hover,
+.admin-datetime-picker-dropdown [class*="timeWrapper"] button[class*="submitButton"]:hover {
+  opacity: 0.9 !important;
+}
+

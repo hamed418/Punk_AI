@@ -1,0 +1,22 @@
+name: Restrict Dev Branch Merges
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  check-author:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if PR actor is allowed
+        run: |
+          ACTOR="${{ github.actor }}"
+          echo "Pull request triggered by: $ACTOR"
+
+          if [ "$ACTOR" = "CashTAG7" ] || [ "$ACTOR" = "dos-team-5" ]; then
+            echo "Access granted. $ACTOR is authorized to merge."
+            exit 0
+          else
+            echo "Error: Only CashTAG7 and dos-team-5 are allowed to merge into the dev branch."
+            exit 1
+          fi

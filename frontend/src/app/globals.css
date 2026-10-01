@@ -1,0 +1,817 @@
+@import 'tailwindcss';
+
+@custom-variant light (&:where(.light, .light *, [data-mantine-color-scheme="light"], [data-mantine-color-scheme="light"] *, [data-theme="light"], [data-theme="light"] *));
+@custom-variant dark (&:where(.dark, .dark *, [data-mantine-color-scheme="dark"], [data-mantine-color-scheme="dark"] *, [data-theme="dark"], [data-theme="dark"] *));
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-inter: var(--font-inter);
+  --font-display: var(--font-display);
+  --font-mono: var(--font-mono);
+  --font-ocrx: var(--font-ocrx);
+
+  /* New Colors  */
+  --color-bw: var(--mantine-color-bw);
+  --color-black: var(--mantine-color-black);
+  --color-sidebar-bg: var(--mantine-sidebar-bg);
+  --color-navlink-bg: var(--mantine-color-navlink-bg);
+
+  /* Backgrounds */
+  --color-primary-bg: var(--mantine-color-bg-primary);
+  --color-secondary-bg: var(--mantine-color-bg-secondary);
+  --color-campaign-bg: var(--mantine-color-campaign-bg);
+
+  /* chat color */
+  --color-user-chat-bubble: var(--mantine-color-user-block);
+  --shadow-chat-input-icon: var(--mantine-chat-input-icon-shadow);
+  --shadow-chat-input: var(--mantine-chat-input-shadow);
+  --shadow-new-chat-input: var(--mantine-new-chat-input-shadow);
+  --shadow-new-chat-chip: var(--mantine-new-chat-input-chip-shadow);
+
+  /* Dividers */
+  --color-divider: var(--mantine-color-divider);
+  --color-underline: var(--mantine-color-underline);
+  --color-profile-stroke: var(--mantine-color-profile-stroke);
+
+  /* Texts */
+  --color-primary-text: var(--mantine-color-text-primary);
+  --color-secondary-text: var(--mantine-color-text-secondary);
+
+  /* Widgets */
+  --color-primary-widget: var(--mantine-color-widget-primary);
+  --color-widget-inner-glass-bg: var(--mantine-color-widget-inner-glass-bg);
+  --color-secondary-widget: var(--mantine-color-widget-secondary);
+  --color-stroke-widget: var(--mantine-color-widget-stroke);
+  --shadow-widget: var(--mantine-widget-shadow);
+
+  /* Buttons */
+  --color-primary-button: var(--mantine-color-button-primary);
+  --color-primary-button-hover: var(--mantine-color-button-primary-hover);
+  --color-secondary-button: var(--mantine-color-button-secondary);
+  --color-stroke-button: var(--mantine-color-button-stroke);
+  --color-button-disabled: var(--mantine-color-button-disabled);
+  --color-plus-minus-button-bg: var(--mantine-color-plus-minus-button-bg);
+  --color-plus-minus-button-border: var(
+    --mantine-color-plus-minus-button-border
+  );
+  --color-plus-minus-button-hover: var(--mantine-color-plus-minus-button-hover);
+  --shadow-plus-minus-button-shadow: var(
+    --mantine-color-plus-minus-button-shadow
+  );
+  --shadow-info: var(--mantine-color-info-shadow);
+
+  --radius-lg: 0.75rem;
+  --radius-md: 0.5rem;
+  --radius-sm: 0.25rem;
+
+  @keyframes shimmer {
+    0% {
+      background-position: 0 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
+  }
+}
+
+/* Hardware-accelerated composite-only transition for Auth flows */
+@keyframes authFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-auth-in {
+  animation: authFadeIn 200ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-auth-in {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Hide native scrollbars while keeping scroll functionality */
+.custom-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.custom-scrollbar::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* Sleek custom scrollbar for textareas + page */
+.custom-textarea-scrollbar::-webkit-scrollbar,
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+.custom-textarea-scrollbar::-webkit-scrollbar-track,
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-textarea-scrollbar::-webkit-scrollbar-thumb,
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--color-primary-text) 18%, transparent);
+  border-radius: 999px;
+}
+.custom-textarea-scrollbar::-webkit-scrollbar-thumb:hover,
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--color-primary-text) 30%, transparent);
+}
+.custom-textarea-scrollbar,
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(
+      in srgb,
+      var(--color-primary-text) 18%,
+      transparent
+    )
+    transparent;
+}
+
+/* Prevent map scroll chaining to stop page scroll when hovering over maps */
+.google-map-wrapper,
+.google-map-wrapper > div {
+  overscroll-behavior: none !important;
+}
+
+/* Hide Google Maps bottom-right UI: Terms, keyboard shortcuts, etc. */
+.gm-style-cc,
+.gm-style-cc + div,
+a[href^='https://maps.google.com/maps'],
+a[href^='https://www.google.com/maps'] {
+  display: none !important;
+}
+
+/* Hide keyboard shortcut button */
+button[title='Keyboard shortcuts'],
+button[aria-label='Keyboard shortcuts'] {
+  display: none !important;
+}
+
+/* Hide "Terms" and "Report a map error" links */
+.gmnoprint:not([style*='z-index: 1000']) a,
+.gm-style > div > div > a[target='_blank'] {
+  display: none !important;
+}
+.gm-style-iw-a,
+.gm-style-iw-ch,
+.gm-style-iw {
+  background: transparent !important;
+}
+
+.gm-style-iw-c {
+  background-color: #ffffff03 !important;
+  backdrop-filter: blur(75.9px) !important;
+  -webkit-backdrop-filter: blur(75.9px) !important;
+  border-radius: 18px !important;
+  box-shadow:
+    0px 8px 24px 0px #00000080,
+    0px -1px 0px 0px #00000066 inset,
+    0px 1px 0px 0px #ffffff1f inset !important;
+  max-width: 306px !important;
+}
+
+.gm-style-iw-c:has(.custom-poi-iw),
+.gm-style-iw-c:has(.poi-popup) {
+  padding: 0px !important;
+  width: 306px !important;
+  max-width: 306px !important;
+  max-height: none !important;
+  background-color: rgba(48, 48, 46, 0.01) !important;
+  backdrop-filter: blur(75.9px) !important;
+  border-radius: 18px !important;
+  box-shadow:
+    0px 8px 24px 0px #00000080,
+    0px 0px 0px 0px #00000066 inset,
+    0px 1px 0px 0px #ffffff1f inset !important;
+  overflow: hidden !important;
+}
+
+.gm-style-iw-c:has(.custom-poi-iw) .gm-style-iw-d,
+.gm-style-iw-c:has(.custom-poi-iw) .gm-style-iw-d > div,
+.gm-style-iw-c:has(.poi-popup) .gm-style-iw-d,
+.gm-style-iw-c:has(.poi-popup) .gm-style-iw-d > div {
+  max-height: none !important;
+  overflow: hidden !important;
+  padding: 0px !important;
+  margin: 0px !important;
+  padding-bottom: 8px !important;
+  border-radius: 18px !important;
+}
+
+/* Light mode override — match widget glass design */
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-c {
+  background-color: rgba(250, 249, 245, 0.75) !important;
+  border: 1px solid #ffffffe5 !important;
+  backdrop-filter: saturate(180%) blur(10px) !important;
+  box-shadow:
+    0px 15px 26px 0px #1d1d1d14,
+    0px 2px 2px 0px #ffffffb2 inset,
+    1px -1px 2px 0px #ffffff80 inset !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-c:has(.custom-poi-iw),
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-c:has(.poi-popup) {
+  background-color: #ffffff10 !important;
+  border: 1px solid #ffffffe5 !important;
+  backdrop-filter: blur(75.9px) !important;
+  -webkit-backdrop-filter: blur(75.9px) !important;
+  box-shadow:
+    0px 15px 26px 0px #1d1d1d14,
+    0px 2px 2px 0px #ffffffb2 inset,
+    1px -1px 2px 0px #ffffff80 inset !important;
+}
+
+.gm-style-iw-c::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  opacity: 0.05 !important;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E") !important;
+  pointer-events: none !important;
+  border-radius: 28px !important;
+}
+
+.gm-style-iw-d {
+  background-color: transparent !important;
+  overflow: hidden !important;
+  padding: 0px !important;
+  max-width: 306px !important;
+}
+
+.gm-style-iw-c
+  div:not(
+    .custom-poi-iw,
+    .custom-poi-iw *,
+    .poi-popup,
+    .poi-popup *,
+    button,
+    button *
+  ),
+.gm-style-iw-d:not(:has(.custom-poi-iw)),
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  *:not(button):not(button *) {
+  background-color: #ffffff03 !important;
+  backdrop-filter: blur(75.9px) !important;
+  border-radius: 18px !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-c
+  div:not(
+    .custom-poi-iw,
+    .custom-poi-iw *,
+    .poi-popup,
+    .poi-popup *,
+    button,
+    button *
+  ),
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)),
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  *:not(button):not(button *) {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+/* Override general transparent background rule for slider parts using robust attribute selectors */
+.custom-poi-iw div[class*='track'] {
+  background-color: #ffffff04 !important;
+  height: 1px !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .custom-poi-iw
+  div[class*='track'] {
+  background-color: #0000001a !important;
+}
+
+.custom-poi-iw div[class*='bar'] {
+  background-color: #ffffff14 !important;
+  height: 1px !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .custom-poi-iw
+  div[class*='bar'] {
+  background-color: #151515 !important;
+}
+
+.custom-poi-iw div[class*='thumb'] {
+  background-color: #ffffff33 !important;
+  border: 1px solid;
+  border-image-source:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.12)) !important;
+  box-shadow:
+    0px 2.91px 6.31px 0px #0000001f,
+    0px 0.24px 1.94px 0px #0000001f,
+    0px 2px 12px 0px #00000040,
+    0px 1px 0px 0px #ffffff40 inset !important;
+  backdrop-filter: blur(17.5px) !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .custom-poi-iw
+  div[class*='thumb'] {
+  background-color: #ffffff !important;
+  border: 1px solid #0000001f !important;
+  box-shadow: 0px 2px 6px 0px #00000026 !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  .title,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  .gm-title,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  > div:first-child,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  > div:first-child
+  * {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup)) .address,
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup)) .gm-basicinfo,
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup)) .gm-basicinfo *,
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  > div:nth-child(2),
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  > div:nth-child(2)
+  * {
+  color: #e3e3e3 !important;
+  -webkit-text-fill-color: #e3e3e3 !important;
+  font-family: var(--font-inter), sans-serif !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  opacity: 0.7 !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  .address,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  .gm-basicinfo,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  .gm-basicinfo
+  *,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  > div:nth-child(2),
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup))
+  > div:nth-child(2)
+  * {
+  color: #333333 !important;
+  -webkit-text-fill-color: #333333 !important;
+  opacity: 0.7 !important;
+}
+
+/* Ensure POI-specific popups have text matching widgets */
+.custom-poi-iw,
+.custom-poi-iw * {
+  -webkit-text-fill-color: currentColor !important;
+}
+
+.trash-hover-btn:hover svg {
+  stroke: #f87171 !important;
+  color: #f87171 !important;
+}
+
+.poi-info-window,
+.poi-info-window *,
+.poi-info-window div,
+.poi-info-window span,
+.poi-info-window a,
+.poi-info-window .address-line,
+gmp-info-window,
+gmp-info-window *,
+.gm-style-iw-c:not(:has(.custom-poi-iw)) * {
+  color: #e3e3e3 !important;
+  -webkit-text-fill-color: #e3e3e3 !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  *,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  div,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  span,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  a,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  .address-line,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  gmp-info-window,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  gmp-info-window
+  *,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-c:not(:has(.custom-poi-iw))
+  * {
+  color: #333333 !important;
+  -webkit-text-fill-color: #333333 !important;
+}
+
+.poi-info-window .title,
+.poi-info-window h1,
+.poi-info-window h2,
+.poi-info-window h3,
+.poi-info-window h4 {
+  color: #faf9f5 !important;
+  -webkit-text-fill-color: #faf9f5 !important;
+  fill: #faf9f5 !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  .title,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  h1,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  h2,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  h3,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .poi-info-window
+  h4 {
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+  fill: #000000 !important;
+}
+
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup)) a[href],
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup)) a[href]:link,
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup)) a[href]:visited {
+  font-family: var(--font-inter), sans-serif !important;
+  font-size: 11px !important;
+  font-weight: 600 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
+  text-decoration: none !important;
+  margin-top: 10px !important;
+  display: inline-block !important;
+}
+
+.gm-style-iw-d:not(:has(.custom-poi-iw)):not(:has(.poi-popup)) a[href]:hover {
+  text-decoration: underline !important;
+  opacity: 0.9 !important;
+}
+
+.gm-style-iw-c button.gm-ui-hover-effect {
+  z-index: 20 !important;
+  opacity: 1 !important;
+  transform: scale(0.6) !important;
+  transform-origin: top right !important;
+  color: var(--color-primary-text) !important;
+  top: 10px !important;
+  right: -9px !important;
+}
+
+.gm-style-iw-c button.gm-ui-hover-effect > span {
+  background-color: var(--color-primary-text) !important;
+}
+
+.gm-style-iw-tc {
+  filter: none !important;
+}
+.gm-style-iw-tc::after {
+  background: rgba(61, 61, 58, 0.97) !important;
+  backdrop-filter: blur(75.9px) !important;
+  -webkit-backdrop-filter: blur(75.9px) !important;
+  box-shadow: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-style-iw-tc::after {
+  background: var(--color-primary-bg, #faf9f5) !important;
+  border: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ─── Google Maps Zoom Control — Glass Widget Style ─────────────────────── */
+
+/* Container: strip Google's default card shadow/background */
+.gm-bundled-control .gmnoprint > div,
+.gmnoprint[style*='user-select'] > div {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-radius: 14px !important;
+  overflow: visible !important;
+}
+
+/* Each +/- button */
+.gm-control-active .gm-fullscreen-control,
+.gm-bundled-control button.gm-control-active {
+  background: #ffffff17 !important;
+  border: none !important;
+  border-top: 1px solid #ffffff10 !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-info) !important;
+  backdrop-filter: blur(85.9000015258789px) !important;
+  /* -webkit-backdrop-filter: blur(16px) !important; */
+  width: 38px !important;
+  height: 38px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: transform 0.15s ease !important;
+  overflow: hidden !important;
+  margin-bottom: 7px !important;
+  margin-left: 4px !important;
+  color: #ffffff !important;
+}
+
+/* Light mode overrides for Google Maps zoom buttons */
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-control-active
+  .gm-fullscreen-control,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .gm-bundled-control
+  button.gm-control-active {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  box-shadow:
+    0px 15px 26px 0px #1d1d1d14,
+    0px 2px 2px 0px #ffffffb2 inset,
+    1px -1px 2px 0px #ffffff80 inset !important;
+}
+
+.gm-bundled-control button.gm-control-active:hover {
+  transform: scale(1.1) !important;
+}
+
+/* .gm-bundled-control button.gm-control-active:active {
+  transform: scale(0.97) !important;
+} */
+
+/* Make the +/- img icons white */
+.gm-bundled-control button.gm-control-active img {
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* Divider between + and - */
+.gm-bundled-control .gm-svpc,
+.gm-bundled-control .gmnoprint > div > button + div,
+.gmnoprint[style*='user-select'] > div > button + div {
+  display: none !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  height: 0 !important;
+  width: 0 !important;
+  border: none !important;
+}
+
+/* Map Glass Icon Button — perfectly centered icon for all maps & responsive viewports */
+.map-widget-glass-icon-btn,
+button[title='Information'] {
+  border: 1px solid #ffffff10 !important;
+  box-sizing: border-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .map-widget-glass-icon-btn,
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  button[title='Information'] {
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+}
+
+.map-widget-glass-icon-btn > span,
+button[title='Information'] > span {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+}
+
+.map-widget-glass-icon-btn svg,
+button[title='Information'] svg {
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  flex-shrink: 0 !important;
+  position: static !important;
+  transform: none !important;
+}
+
+/* Theme change transition */
+@layer base {
+  * {
+    transition:
+      background-color 300ms ease,
+      color 300ms ease,
+      border-color 300ms ease,
+      box-shadow 300ms ease;
+  }
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-reveal 0.7s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@keyframes theme-reveal {
+  0% {
+    clip-path: circle(0px at 15% 90%);
+  }
+  100% {
+    clip-path: circle(150% at 15% 90%);
+  }
+}
+
+/* Nav active link — dark default, light override */
+.nav-active-bg {
+  border-top: 1px solid #ffffff17;
+  box-shadow:
+    0px 8px 24px 0px #00000080,
+    0px -1px 0px 0px #00000066 inset,
+    0px 1px 0px 0px #ffffff1f inset;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .nav-active-bg {
+  border-image-source:
+    linear-gradient(0deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)),
+    linear-gradient(0deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09)) !important;
+  box-shadow:
+    0px 2px 6px 0px #00000033,
+    0px 1.5px 0px 0px #ffffff59 inset !important;
+}
+
+/* Sidebar shadow — dark default, light override */
+.sidebar-shadow {
+  box-shadow:
+    0px 8px 24px 0px #00000080,
+    0px -1px 0px 0px #00000066 inset,
+    0px 1px 0px 0px #ffffff1f inset;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .sidebar-shadow {
+  box-shadow:
+    0px 15px 26px 0px #ffffff29,
+    0px 2px 2px 0px #ffffffb2 inset,
+    1px -1px 2px 0px #ffffff80 inset;
+}
+
+/* Prompt tag button style - light Figma override, dark mode preserved */
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .prompt-tag-button {
+  background: #eeeeec !important;
+  border: 1px solid #d9d9d9 !important;
+  backdrop-filter: blur(40px) !important;
+  -webkit-backdrop-filter: blur(40px) !important;
+  box-shadow:
+    0px 8px 24px 0px #cacaca80,
+    0px -1px 0px 0px #aeaeae66 inset,
+    0px 3px 0px 0px #ffffff73 inset !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .prompt-tag-button:hover {
+  background: #eeeeec !important;
+}
+
+/* Chat input container — dark default, light Figma override */
+.chat-input-container {
+  /* border handled by dark-mode box-shadow; no border-image in dark */
+  border: none !important;
+}
+
+:where(.light, [data-mantine-color-scheme='light'], [data-theme='light'])
+  .chat-input-container {
+  background: #15151505 !important;
+  border: 1px solid transparent !important;
+  box-shadow:
+    0px 2px 2px 0px #ffffffb2 inset,
+    1px -1px 2px 0px #ffffff80 inset,
+    0px 15px 10.8px 0px #1d1d1d12 !important;
+}
+
+/* Fix text-opacity for Tailwind classes in Google Maps InfoWindows where text-fill overrides exist */
+.text-secondary-text\/70\! {
+  opacity: 0.7 !important;
+}
+
+.text-primary-text\/70\! {
+  opacity: 0.7 !important;
+}
+
+.text-primary-text\/74\! {
+  opacity: 0.74 !important;
+}
+
+.text-secondary-text\/60 {
+  opacity: 0.6 !important;
+}
+
+/* Fix Mantine Pill label margin-bottom inline style misaligning text vs cross icon — scoped to special ad categories only */
+.special-ad-categories-multiselect .mantine-Pill-label {
+  margin-bottom: 4 !important;
+}
+
+/* Remove Mantine default red color for weekend days in date pickers */
+.mantine-DateInput-calendarHeader ~ * [data-weekend],
+[data-mantine-color-scheme] [data-weekend] {
+  color: inherit !important;
+}
+
+/* Neon pulse light purple animation (matching ChatInput pulseOut) */
+@keyframes pulseOut {
+  0% {
+    transform: scale(1);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.neon-pulse-pink {
+  --neon-color: #fafafa;
+  --neon-glow: #ffffff;
+  border: 2px solid var(--neon-color) !important;
+  box-shadow: 0 0 10px var(--neon-glow) !important;
+  overflow: visible !important;
+}
+
+.neon-pulse-pink::before,
+.neon-pulse-pink::after {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border: 2px solid var(--neon-color);
+  border-radius: inherit;
+  animation: pulseOut 3s ease-out infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.neon-pulse-pink::after {
+  animation-delay: 1.5s;
+}
+
+.neon-pulse-pink:hover {
+  box-shadow: 0 0 16px var(--neon-glow) !important;
+}

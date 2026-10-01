@@ -1,0 +1,13 @@
+services:
+  punk_admin_panel_dev:
+    build:
+      context: . # ← plain text, no brackets or links
+    container_name: punk_admin_panel_dev
+    ports:
+      - "${VITE_PORT}:${VITE_PORT}"
+    env_file:
+      - .env
+    environment:
+      - VITE_API_URL=${VITE_API_URL}
+      - VITE_PORT=${VITE_PORT}
+    restart: unless-stopped

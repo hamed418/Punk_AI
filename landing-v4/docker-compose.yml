@@ -1,0 +1,17 @@
+services:
+  landing-dev:
+    build:
+      context: .
+
+    container_name: landing_punk_v4
+
+    ports:
+      - "${PORT:-3225}:3225"
+
+    env_file:
+      - .env
+
+    environment:
+      - PORT=3225
+
+    restart: unless-stopped

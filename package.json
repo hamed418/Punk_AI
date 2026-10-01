@@ -1,0 +1,37 @@
+{
+  "name": "punk_ai",
+  "version": "1.0.0",
+  "description": "An AI advertising consultant that combines a conversational chatbot with an interactive map for geofence and POI-based audience targeting. The backend is a LangGraph agent that guides users through collecting business details, geo targets, and MAID (Mobile Advertising ID) audience data, then generates and publishes a complete Meta Ads campaign.",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "frontend": "cd frontend && npm run dev",
+    "start": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "build:frontend": "cd frontend && npm run build",
+    "build": "npm run build:frontend",
+    "git-sync": "git add . && git commit -m \"update\"  && git fetch origin && git pull origin main &&   git push origin main",
+    "prepare": "husky"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Devs-On-Steroids/Punk_AI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Devs-On-Steroids/Punk_AI/issues"
+  },
+  "homepage": "https://github.com/Devs-On-Steroids/Punk_AI#readme",
+  "devDependencies": {
+    "concurrently": "^10.0.3",
+    "husky": "^9.1.7"
+  },
+  "dependencies": {
+    "lucide-react": "^1.28.0",
+    "tailwind-merge": "^3.6.0"
+  }
+}

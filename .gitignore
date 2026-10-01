@@ -1,0 +1,68 @@
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.pyc
+backend/*.pyo
+backend/app.db
+backend/tmp/
+backend/logs/
+backend/uploads/
+backend/raw_maid/
+backend/graphify-out/
+# Local-only: kept on disk, deliberately out of the repo (untracked via
+# `git rm --cached`). Nobody else runs these. A fresh clone has no backend test
+# suite and no plan-form fixtures — regenerate the latter with
+# scripts/dump_plan_form_contract.py. Re-track with `git add -f <path>`.
+# backend/tests/
+frontend/contracts/campaign_plan_form/
+# backend/alembic/
+node_modules
+
+
+# Node (for when frontend is added)
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Env
+.env
+.env.local
+
+# OS
+.DS_Store
+Thumbs.db
+
+.claude/
+.claudeignore
+CLAUDE.md
+AGENTS.md
+graphify-out/
+AGENTS.md
+
+
+
+# Probe resume cache — scratch, not evidence. scripts/probe_meta_matrix.py
+# writes it beside the answers so re-probes do not churn the committed fixture.
+backend/tests/data/meta_matrix_probe.cache.json
+
+
+# ---- Hidden from public repo: secrets / infra / internal ----
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*service-account*.json
+*credentials*.json
+*cloudbuild*.yaml
+cloudbuild-access-test.txt
+.graphify_python
+.vscode/
+.husky/
+docs/*.md
+backend/tests/data/meta_matrix_probe.json
+qa_report/
+chunk1.json
+office_comment_notes.txt
+*_test_40*.txt

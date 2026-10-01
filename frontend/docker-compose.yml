@@ -1,0 +1,20 @@
+services:
+  frontend-dev:
+    build:
+      context: .
+
+    container_name: punk_frontend_dev
+
+    ports:
+      - "${PORT:-3000}:3000"
+
+    env_file:
+      - .env
+
+    environment:
+      - NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+      - NEXT_PUBLIC_GOOGLE_MAPS_API_KEY=${NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+      - NEXT_PUBLIC_GOOGLE_CLIENT_ID=${NEXT_PUBLIC_GOOGLE_CLIENT_ID}
+      - PORT=3000
+
+    restart: unless-stopped
